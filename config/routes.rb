@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Avo::Engine, at: Avo.configuration.root_path
   get "admin_dashboard/index"
   # Public homepage
   root "public#home"

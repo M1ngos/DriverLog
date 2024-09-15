@@ -3,19 +3,29 @@ class Driver < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :tasks
-  belongs_to :client, optional: true  # Optional if not all drivers are assigned to clients
+  belongs_to :client, optional: true
   validates :username, presence: true, uniqueness: true
 
-  # def self.find_for_database_authentication(warden_conditions)
-  #   conditions = warden_conditions.dup
-  #   if email = conditions.delete(:email)
-  #     where(conditions.to_h).where([ "email = :value OR username = :value", { value: email } ]).first
-  #   else
-  #     where(conditions.to_h).first
-  #   end
-  # end
   # Ensure username is used for authentication
   def self.find_for_database_authentication(conditions)
     conditions[:username] ? where(username: conditions[:username]).first : nil
   end
+
+  # Methods for clocking in and out
+  def clock_in
+    ensure_shift_exists
+    current_shift.update!(clock_in: Time.current) if current_shift
+  end
+
+  def clock_out
+    current_shift.update!(clock_out: Time.current) if current_shift
+  end
+
+  # Ensure a shift exists before clocking in
+  def ensure_shift_exists
+    Shift.create!(driver: self) if current_shift.nil?
+  end
+
+  def current_shift
+    shifts.find_by(clock_out: nil)  end
 end
