@@ -1,0 +1,54 @@
+<!-- app/views/driver_dashboard/index.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Dashboard</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <h1>Welcome, <%= current_driver.username %>!</h1>
+
+  <h2>Current Shift</h2>
+  <% if @current_shift %>
+    <p>Shift started at: <%= @current_shift.clock_in %></p>
+    <% if @current_shift.clock_out %>
+      <p>Shift ended at: <%= @current_shift.clock_out %></p>
+    <% else %>
+      <p>Shift is ongoing.</p>
+    <% end %>
+  <% else %>
+    <p>No current shift.</p>
+  <% end %>
+
+  <h2>Your Shifts</h2>
+  <ul>
+    <% @shifts.each do |shift| %>
+      <li>
+        Shift started at: <%= shift.clock_in %>
+        <% if shift.clock_out %>
+          | Ended at: <%= shift.clock_out %>
+        <% else %>
+          | Ongoing
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Your Tasks</h2>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li>
+        <%= task.title %> - <%= task.description %>
+        <% if task.completed == true %>
+          | Completed
+        <% else %>
+          | Not Completed
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</body>
+</html>

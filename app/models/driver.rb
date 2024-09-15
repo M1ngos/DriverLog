@@ -27,5 +27,11 @@ class Driver < ApplicationRecord
   end
 
   def current_shift
-    shifts.find_by(clock_out: nil)  end
+    Shift.where(driver: self, clock_out: nil).first
+  end
+
+  # Mark task as complete
+  def complete_task(task)
+    task.update!(completed: true)
+  end
 end

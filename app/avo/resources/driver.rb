@@ -10,6 +10,8 @@ class Avo::Resources::Driver < Avo::BaseResource
     # field :id, as: :id
     field :username, as: :text
     field :email, as: :text
+    field :password, as: :password  # For creating new drivers
+    field :password_confirmation, as: :password  # For confirmation
     field :client, as: :belongs_to, optional: true
     field :tasks, as: :has_many
     field :created_at, as: :date_time

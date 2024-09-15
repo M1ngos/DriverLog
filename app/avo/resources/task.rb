@@ -10,6 +10,7 @@ class Avo::Resources::Task < Avo::BaseResource
     field :id, as: :idlo
     field :title, as: :text
     field :description, as: :textarea
+    field :completed, as: :boolean # This is the new 'completed' field
     # field :driver_id, as: :number
     field :driver, as: :belongs_to
     field :client, as: :belongs_to

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount Avo::Engine, at: Avo.configuration.root_path
   get "admin_dashboard/index"
+  get "driver_dashboard/index"
   # Public homepage
   root "public#home"
 
@@ -32,6 +33,11 @@ Rails.application.routes.draw do
 
   # Namespace for driver routes
   namespace :drivers do
+    # get "shifts/create"
+    # get "shifts/update"
+    get "dashboard", to: "drivers_dashboard#index", as: :driver_dashboard
+    # get "dashboard", to: "dashboard#index"
+    resources :shifts, only: [ :create, :update ]
     resources :tasks, only: [ :index, :show ]
   end
 
