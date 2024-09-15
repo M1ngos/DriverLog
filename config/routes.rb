@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     get "dashboard", to: "drivers_dashboard#index", as: :driver_dashboard
     # get "dashboard", to: "dashboard#index"
     resources :shifts, only: [ :create, :update ]
-    resources :tasks, only: [ :index, :show ]
+    resources :tasks, only: [ :index, :show, :update ]
   end
 
   # Health check route

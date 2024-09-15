@@ -3,6 +3,7 @@ class Driver < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :tasks
+  has_many :shifts
   belongs_to :client, optional: true
   validates :username, presence: true, uniqueness: true
 
@@ -13,8 +14,11 @@ class Driver < ApplicationRecord
 
   # Methods for clocking in and out
   def clock_in
-    ensure_shift_exists
-    current_shift.update!(clock_in: Time.current) if current_shift
+    if current_shift.nil?
+      shifts.create!(clock_in: Time.current)
+    else
+      raise "Driver is already clocked in"
+    end
   end
 
   def clock_out

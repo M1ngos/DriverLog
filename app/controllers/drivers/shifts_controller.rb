@@ -1,24 +1,30 @@
-# app/controllers/drivers/shifts_controller.rb
-module Drivers
-  class ShiftsController < ApplicationController
+  # app/controllers/drivers/shifts_controller.rb
+  class Drivers::ShiftsController < ApplicationController
     before_action :authenticate_driver!
 
     def create
-      @shift = Shift.new(driver: current_driver, clock_in: Time.current)
-      if @shift.save
-        redirect_to driver_dashboard_path, notice: "Shift started successfully."
+      if current_driver.clock_in
+        Rails.logger.debug "Successfully clocked in"
+        redirect_to driver_dashboard_path, notice: "Clocked in successfully."
       else
-        redirect_to driver_dashboard_path, alert: "Failed to start shift."
+        Rails.logger.debug "Failed to clock in"
+        redirect_to driver_dashboard_path, alert: "Failed to clock in."
       end
     end
 
     def update
-      @shift = Shift.find(params[:id])
-      if @shift.update(clock_out: Time.current)
-        redirect_to driver_dashboard_path, notice: "Shift ended successfully."
+      # Update an existing shift with clock_out time
+      @shift = current_driver.shifts.find(params[:id])
+      if @shift.update(shift_params)
+        redirect_to driver_dashboard_path, notice: "Clocked out successfully."
       else
-        redirect_to driver_dashboard_path, alert: "Failed to end shift."
+        redirect_to driver_dashboard_path, alert: "Failed to clock out."
       end
     end
+
+    private
+
+    def shift_params
+      params.require(:shift).permit(:clock_in, :clock_out)
+    end
   end
-end

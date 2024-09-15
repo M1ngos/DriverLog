@@ -9,44 +9,33 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <h1>Welcome, <%= current_driver.username %>!</h1>
+  <h1>Driver Dashboard</h1>
 
-  <h2>Current Shift</h2>
-  <% if @current_shift %>
-    <p>Shift started at: <%= @current_shift.clock_in %></p>
-    <% if @current_shift.clock_out %>
-      <p>Shift ended at: <%= @current_shift.clock_out %></p>
-    <% else %>
-      <p>Shift is ongoing.</p>
-    <% end %>
+  <!-- Display current shift information -->
+  <% if current_driver.current_shift %>
+    <p>Current Shift: Started at <%= current_driver.current_shift.clock_in %></p>
+    <!-- Button to clock out -->
+    <%= button_to 'Clock Out', drivers_shift_path(current_driver.current_shift), 
+                  method: :patch, 
+                  params: { shift: { clock_out: Time.current } }, 
+                  class: 'btn btn-danger' %>
   <% else %>
-    <p>No current shift.</p>
+    <!-- No active shift: Button to clock in -->
+    <p>No active shift. 
+       <%= button_to 'Clock In', drivers_shifts_path, 
+                     method: :post, 
+                     params: { shift: { clock_in: Time.current } }, 
+                     class: 'btn btn-success' %>
+    </p>
   <% end %>
 
-  <h2>Your Shifts</h2>
-  <ul>
-    <% @shifts.each do |shift| %>
-      <li>
-        Shift started at: <%= shift.clock_in %>
-        <% if shift.clock_out %>
-          | Ended at: <%= shift.clock_out %>
-        <% else %>
-          | Ongoing
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <h2>Your Tasks</h2>
+  <!-- Display tasks -->
+  <h2>My Tasks</h2>
   <ul>
     <% @tasks.each do |task| %>
       <li>
-        <%= task.title %> - <%= task.description %>
-        <% if task.completed == true %>
-          | Completed
-        <% else %>
-          | Not Completed
-        <% end %>
+        <%= link_to task.title, drivers_task_path(task) %> - 
+        <%= task.completed ? "Completed" : "Not Completed" %>
       </li>
     <% end %>
   </ul>
