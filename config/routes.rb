@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     # get "shifts/create"
     # get "shifts/update"
     get "dashboard", to: "drivers_dashboard#index", as: :driver_dashboard
+    patch "tasks/:id/toggle_completion", to: "tasks#toggle_completion", as: :toggle_task_completion
     # get "dashboard", to: "dashboard#index"
     resources :shifts, only: [ :create, :update ]
     resources :tasks, only: [ :index, :show, :update ]

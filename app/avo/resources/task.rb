@@ -7,7 +7,7 @@ class Avo::Resources::Task < Avo::BaseResource
   # }
 
   def fields
-    field :id, as: :idlo
+    field :id, as: :id
     field :title, as: :text
     field :description, as: :textarea
     field :completed, as: :boolean # This is the new 'completed' field

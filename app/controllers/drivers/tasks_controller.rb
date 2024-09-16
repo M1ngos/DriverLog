@@ -27,4 +27,10 @@ class Drivers::TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:completed)
   end
+
+  def toggle_completion
+    @task = Task.find(params[:id])
+    @task.update(completed: !@task.completed)
+    redirect_to drivers_dashboard_path, notice: "Task status updated."
+  end
 end
