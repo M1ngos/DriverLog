@@ -1,0 +1,21 @@
+<!-- app/views/drivers/tasks/index.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tasks</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <h1>My Tasks</h1>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li>
+        <%= link_to task.title, drivers_task_path(task) %> - <%= task.done ? "Completed" : "Not Completed" %>
+      </li>
+    <% end %>
+  </ul>
+</body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_14_112705) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_15_160433) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -40,22 +40,35 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_14_112705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_drivers_on_client_id"
     t.index ["email"], name: "index_drivers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_drivers_on_reset_password_token", unique: true
     t.index ["username"], name: "index_drivers_on_username", unique: true
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.integer "driver_id", null: false
+    t.datetime "clock_in"
+    t.datetime "clock_out"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_shifts_on_driver_id"
   end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "driver_id", null: false
-    t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_tasks_on_client_id"
+    t.integer "client_id"
+    t.boolean "completed", default: false
     t.index ["driver_id"], name: "index_tasks_on_driver_id"
   end
 
+  add_foreign_key "drivers", "clients"
+  add_foreign_key "shifts", "drivers"
   add_foreign_key "tasks", "clients"
   add_foreign_key "tasks", "drivers"
 end

@@ -1,5 +1,5 @@
 class PublicController < ApplicationController
   def home
-    # flash[:notice] = "This is a notice message."
+    #  flash[:notice] = "."
   end
 end

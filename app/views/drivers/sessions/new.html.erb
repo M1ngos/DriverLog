@@ -10,7 +10,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    * {
+   * {
       margin: 0;
       padding: 0;
       border: 0;
@@ -66,12 +66,13 @@
       background-color: #007bff;
       color: white;
       border: none;
-      padding: 10px 16px;
+      padding: 10px 16px; /* Decreased padding */
+      margin: 10px;
       font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
-      width: 70%;
+      width: 70%; /* Increase width of the button */
     }
 
     .btn-custom:hover {
@@ -90,37 +91,58 @@
     .form-control {
       background-color: hsl(218, 41%, 20%) !important;
       border: 1px solid hsl(218, 41%, 30%) !important;
-      color: hsl(218, 81%, 85%);
-      height: 40px;
-      font-size: 14px;
+      color: white; /* Make input text white */
+      height: 40px; /* Decrease height of input fields */
+      font-size: 14px; /* Decrease font size of input fields */
+      width: 100%; /* Ensure input fields take full width */
+    }
+
+    /* Placeholder text color white */
+    ::placeholder {
+      color: white;
+      opacity: 1; /* Full opacity */
+    }
+
+    /* Ensure white placeholder text specifically for admin inputs */
+    #driver_username::placeholder,
+    #driver_password::placeholder {
+      color: white;
+    }
+
+    /* Keep input text and placeholder white when focused */
+    .form-control:focus {
+      background-color: hsl(218, 41%, 20%) !important;
+      color: white !important; /* Keep input text white when focused */
+    }
+
+    .form-control:focus::placeholder {
+      color: white !important; /* Keep placeholder text white when focused */
     }
 
     .form-label {
-      color: hsl(218, 81%, 85%);
-      font-size: 14px;
+      color: white; /* Make form labels white */
+      font-size: 14px; /* Decrease font size of labels */
     }
 
     .mb-3 {
-      margin-bottom: 1rem;
+      margin-bottom: 1rem; /* Adjust spacing between fields */
       margin-top: 1rem;
     }
 
     .mt-4 {
-      margin-top: 2rem;
+      margin-top: 2rem; /* Add space between text and fields */
     }
 
     .card h1 {
-      font-size: 2rem;
+      font-size: 2rem; /* Adjust title size */
+      color: white; /* Make title text white */
     }
 
     .card p {
-      font-size: 1rem;
+      font-size: 1rem; /* Adjust paragraph size */
+      color: white; /* Make paragraph text white */
     }
-
-    .custom-width {
-      width: 100%;
-      max-width: 350px;
-    }
+    
   </style>
 </head>
 
@@ -137,7 +159,7 @@
 
         <div class="mb-3">
           <%# <label for="driver_username" class="form-label">Username</label> %>
-          <input type="text" name="driver[username]" id="driver_username" class="form-control custom-width" placeholder=" Nome de utilizador" required>
+          <input type="text" name="driver[email]" id="driver_username" class="form-control" placeholder=" Email" required>
         </div>
 
         <div class="mb-3">

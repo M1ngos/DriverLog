@@ -4,3 +4,7 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
+
+# def self.find_for_database_authentication(conditions)
+#   conditions[:email] ? where(email: conditions[:email]).first : nil
+# end

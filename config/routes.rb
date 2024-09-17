@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  mount Avo::Engine, at: Avo.configuration.root_path
   get "admin_dashboard/index"
+  get "driver_dashboard/index"
   # Public homepage
   root "public#home"
 
@@ -31,7 +33,13 @@ Rails.application.routes.draw do
 
   # Namespace for driver routes
   namespace :drivers do
-    resources :tasks, only: [ :index, :show ]
+    # get "shifts/create"
+    # get "shifts/update"
+    get "dashboard", to: "drivers_dashboard#index", as: :driver_dashboard
+    patch "tasks/:id/toggle_completion", to: "tasks#toggle_completion", as: :toggle_task_completion
+    # get "dashboard", to: "dashboard#index"
+    resources :shifts, only: [ :create, :update ]
+    resources :tasks, only: [ :index, :show, :update ]
   end
 
   # Health check route
