@@ -158,16 +158,14 @@
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
         <div class="mb-3">
-          <%# <label for="admin_email" class="form-label">Email</label> %>
-          <input type="email" name="admin[email]" id="admin_email" class="form-control custom-width" placeholder=" Email" required>
+          <input type="email" name="admin[email]" id="admin_email" class="form-control" placeholder="Email" required>
         </div>
 
         <div class="mb-3">
-          <%# <label for="admin_password" class="form-label">Password</label> %>
-          <input type="password" name="admin[password]" id="admin_password" class="form-control custom-width" placeholder=" Palavra-passe" required>
+          <input type="password" name="admin[password]" id="admin_password" class="form-control" placeholder="Password" required>
         </div>
 
-        <button type="submit" class="btn btn-custom w-100 mb-3">Entrar</button>
+        <button type="submit" class="btn btn-custom w-100 mb-3">Log in</button>
       </form>
 
       <!-- Forgot password link -->

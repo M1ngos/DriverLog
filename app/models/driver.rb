@@ -5,12 +5,12 @@ class Driver < ApplicationRecord
   has_many :tasks
   has_many :shifts
   belongs_to :client, optional: true
-  validates :username, presence: true, uniqueness: true
+  # validates :username, presence: true, uniqueness: true
 
   # Ensure username is used for authentication
-  def self.find_for_database_authentication(conditions)
-    conditions[:username] ? where(username: conditions[:username]).first : nil
-  end
+  # def self.find_for_database_authentication(conditions)
+  #   conditions[:username] ? where(username: conditions[:username]).first : nil
+  # end
 
   # Methods for clocking in and out
   def clock_in
